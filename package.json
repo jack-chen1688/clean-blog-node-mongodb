@@ -1,0 +1,22 @@
+{
+  "name": "clean-blog-node-mongodb",
+  "version": "1.0.0",
+  "description": "This is the example project of the book \"Beginning Node.js, Express &amp; MongoDB Development\".",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xuehua/clean-blog-node-mongodb.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xuehua/clean-blog-node-mongodb/issues"
+  },
+  "homepage": "https://github.com/xuehua/clean-blog-node-mongodb#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
