@@ -22,9 +22,8 @@ app.listen(3000, ()=> {
 app.get('/', async (req, res) => {
   // res.sendFile(__dirname +'/pages/index.html')
   const blogposts = await BlogPost.find({})
-  console.log(blogposts)
   res.render('index', {
-    blogposts:blogposts
+    blogposts // This means blogposts:blogposts
   });
 })
 
@@ -48,8 +47,13 @@ app.get('/posts/new', (req, res) => {
   res.render('create')
 })
 
-app.post('/posts/store', (req, res) => {
-  BlogPost.create(req.body, (error, blogpost) => {
-    res.redirect('/')
-  })
+// app.post('/posts/store', (req, res) => {
+//   BlogPost.create(req.body, (error, blogpost) => {
+//     res.redirect('/')
+//   })
+// })
+
+app.post('/posts/store', async (req, res) => {
+  await BlogPost.create(req.body)
+  res.redirect('/')
 })
