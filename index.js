@@ -37,9 +37,12 @@ app.get('/contact', (req, res) => {
   res.render('contact');
 })
 
-app.get('/post', (req, res) => {
+app.get('/post/:id', async (req, res) => {
   // res.sendFile(__dirname +'/pages/post.html')
-  res.render('post')
+  blogpost = await BlogPost.findById(req.params.id)
+  res.render('post', {
+    blogpost
+  })
 })
 
 app.get('/posts/new', (req, res) => {
