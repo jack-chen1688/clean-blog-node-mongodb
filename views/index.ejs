@@ -27,7 +27,7 @@
       <div class="col-lg-8 col-md-10 mx-auto">
         <% blogposts.forEach(function(blogpost) { %>
         <div class="post-preview">
-          <a href="post.html">
+          <a href="/post/<%= blogpost._id %>">
             <h2 class="post-title">
               <%= blogpost.title %>
             </h2>
