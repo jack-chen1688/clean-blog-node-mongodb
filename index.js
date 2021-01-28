@@ -11,25 +11,18 @@ const getPostController = require('./controllers/getPost')
 const storePostController = require('./controllers/storePost')
 const validateMiddleWare = require('./controllers/validateMiddleWare')
 const newUserController = require('./controllers/newUser')
+const storeUserController = require('./controllers/storeUser')
 
 app.use(express.static('public'))
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(fileUpload())
-
-// const customMiddleWare = (req, res, next) => {
-//   console.log('Custom middleware called')
-//   next()
-// }
-//
-// app.use(customMiddleWare)
 app.use('/posts/store', validateMiddleWare)
 
-mongoose.connect('mongodb://localhost/my_database',
-  {
+mongoose.connect('mongodb://localhost/my_database',{
     useNewUrlParser: true,
     useUnifiedTopology: true
-  })
+})
 
 app.listen(3000, ()=> {
   console.log("App listening on port 3000")
@@ -40,3 +33,4 @@ app.get('/post/:id', getPostController)
 app.get('/posts/new', newPostController)
 app.post('/posts/store', storePostController)
 app.get('/auth/register', newUserController)
+app.post('/users/register', storeUserController)
