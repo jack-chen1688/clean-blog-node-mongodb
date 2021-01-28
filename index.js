@@ -21,7 +21,8 @@ app.use('/posts/store', validateMiddleWare)
 
 mongoose.connect('mongodb://localhost/my_database',{
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex:true
 })
 
 app.listen(3000, ()=> {
