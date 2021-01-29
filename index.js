@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const expressSession = require('express-session')
 const fileUpload = require('express-fileupload')
 
 const BlogPost = require('./models/BlogPost')
@@ -9,11 +10,17 @@ const newPostController = require('./controllers/newPost')
 const homeController = require('./controllers/home')
 const getPostController = require('./controllers/getPost')
 const storePostController = require('./controllers/storePost')
-const validateMiddleWare = require('./controllers/validateMiddleWare')
+const validateMiddleWare = require('./middleware/validateMiddleWare')
 const newUserController = require('./controllers/newUser')
 const storeUserController = require('./controllers/storeUser')
-const loginUserController = require('./controllers/login')
+const loginController = require('./controllers/login')
+const loginUserController = require('./controllers/loginUser')
 
+app.use(expressSession({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true
+}))
 app.use(express.static('public'))
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended: true}))
@@ -22,6 +29,8 @@ app.use('/posts/store', validateMiddleWare)
 
 mongoose.connect('mongodb://localhost/my_database',{
     useNewUrlParser: true,
+    // Below two options are added to avoid two warnings
+    // https://stackoverflow.com/questions/28839532/node-js-session-error-express-session-deprecated
     useUnifiedTopology: true,
     useCreateIndex:true
 })
@@ -36,4 +45,5 @@ app.get('/posts/new', newPostController)
 app.post('/posts/store', storePostController)
 app.get('/auth/register', newUserController)
 app.post('/users/register', storeUserController)
-app.get('/auth/login', loginUserController)
+app.get('/auth/login', loginController)
+app.post('/users/login', loginUserController)
