@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const expressSession = require('express-session')
 const fileUpload = require('express-fileupload')
+const flash = require('connect-flash')
 
 const BlogPost = require('./models/BlogPost')
 const newPostController = require('./controllers/newPost')
@@ -21,11 +22,14 @@ const logoutController = require('./controllers/logout')
 
 global.loggedIn = null;
 
+
 app.use(expressSession({
   secret: 'keyboard cat',
   resave: true,
   saveUninitialized: true
 }))
+
+app.use(flash())
 app.use(express.static('public'))
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended: true}))
@@ -35,6 +39,8 @@ app.use('*', (req, res, next) => {
   loggedIn = req.session.userId
   next()
 })
+
+
 mongoose.connect('mongodb://localhost/my_database',{
     useNewUrlParser: true,
     // Below two options are added to avoid two warnings
