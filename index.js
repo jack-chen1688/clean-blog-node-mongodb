@@ -12,10 +12,13 @@ const getPostController = require('./controllers/getPost')
 const storePostController = require('./controllers/storePost')
 const validateMiddleware = require('./middleware/validateMiddleware')
 const authMiddleware = require('./middleware/authMiddleware')
+const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware')
 const newUserController = require('./controllers/newUser')
 const storeUserController = require('./controllers/storeUser')
 const loginController = require('./controllers/login')
 const loginUserController = require('./controllers/loginUser')
+
+global.loggedIn = null;
 
 app.use(expressSession({
   secret: 'keyboard cat',
@@ -27,7 +30,10 @@ app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(fileUpload())
 app.use('/posts/store', validateMiddleware)
-
+app.use('*', (req, res, next) => {
+  loggedIn = req.session.userId
+  next()
+})
 mongoose.connect('mongodb://localhost/my_database',{
     useNewUrlParser: true,
     // Below two options are added to avoid two warnings
@@ -45,7 +51,7 @@ app.get('/post/:id', getPostController)
 app.get('/posts/new', authMiddleware, newPostController)
 // app.get('/posts/new', newPostController)
 app.post('/posts/store', authMiddleware, storePostController)
-app.get('/auth/register', newUserController)
-app.post('/users/register', storeUserController)
-app.get('/auth/login', loginController)
-app.post('/users/login', loginUserController)
+app.get('/auth/register', redirectIfAuthenticatedMiddleware, newUserController)
+app.post('/users/register', redirectIfAuthenticatedMiddleware, storeUserController)
+app.get('/auth/login', redirectIfAuthenticatedMiddleware, loginController)
+app.post('/users/login', redirectIfAuthenticatedMiddleware, loginUserController)
