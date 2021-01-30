@@ -8,6 +8,8 @@ module.exports = (req, res) => {
         key => error.errors[key].message)
       // Writen to the flash
       req.flash('validationErrors', validationErrors)
+      req.flash('data', req.body)
+      console.log(req.body)
       res.redirect('/auth/register')
     } else {
       res.redirect('/')
