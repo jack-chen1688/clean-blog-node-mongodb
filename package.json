@@ -12,7 +12,7 @@
   },
   "author": "",
   "license": "ISC",
-  "engine": {
+  "engines": {
     "node": "14.15.1"
   },
   "bugs": {
