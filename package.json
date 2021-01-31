@@ -12,6 +12,9 @@
   },
   "author": "",
   "license": "ISC",
+  "engine": {
+    "node": "14.15.1"
+  },
   "bugs": {
     "url": "https://github.com/xuehua/clean-blog-node-mongodb/issues"
   },
