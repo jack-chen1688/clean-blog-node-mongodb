@@ -4,7 +4,7 @@
   "description": "This is the example project of the book \"Beginning Node.js, Express &amp; MongoDB Development\".",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
