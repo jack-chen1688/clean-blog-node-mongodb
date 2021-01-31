@@ -41,15 +41,27 @@ app.use('*', (req, res, next) => {
 })
 
 
-mongoose.connect('mongodb://localhost/my_database',{
-    useNewUrlParser: true,
-    // Below two options are added to avoid two warnings
-    // https://stackoverflow.com/questions/28839532/node-js-session-error-express-session-deprecated
-    useUnifiedTopology: true,
-    useCreateIndex:true
-})
+// mongoose.connect('mongodb://localhost/my_database',{
+//     useNewUrlParser: true,
+//     // Below two options are added to avoid two warnings
+//     // https://stackoverflow.com/questions/28839532/node-js-session-error-express-session-deprecated
+//     useUnifiedTopology: true,
+//     useCreateIndex:true
+// })
 
-app.listen(3000, ()=> {
+mongoose.connect('mongodb+srv://xuehua:Test123@cluster0.wcfjv.mongodb.net/my_database?retryWrites=true&w=majority', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex:true
+});
+
+let port = process.env.port
+
+if (port == null || port == "") {
+  port = 3000
+}
+app.listen(port, ()=> {
   console.log("App listening on port 3000")
 })
 
