@@ -56,13 +56,12 @@ mongoose.connect('mongodb+srv://xuehua:Test123@cluster0.wcfjv.mongodb.net/my_dat
   useCreateIndex:true
 });
 
-let port = process.env.port
+let port = process.env.PORT
 
 if (port == null || port == "") {
   port = 3000
 }
 app.listen(port, ()=> {
-
   console.log("App listening on port " + port.toString())
 })
 
